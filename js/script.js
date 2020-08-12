@@ -50,6 +50,7 @@
 
     /* remove contents of titleList */
     const titleList = document.querySelector(optTitleListSelector);
+    // eslint-disable-next-line quotes
     titleList.innerHTML = "";
 
     let html = '';
@@ -77,7 +78,7 @@
 
     /* insert link into titleList */
     titleList.innerHTML = html;
-    console.log(html);
+    
     const links = document.querySelectorAll('.titles a');
     for (let link of links) 
     {
@@ -88,33 +89,43 @@
 
   generateTitleLinks();
 
+  // eslint-disable-next-line no-inner-declarations
   function generateTags(){
     /* find all articles */
-  
+    const articles = document.querySelectorAll(optArticleSelector);
+
     /* START LOOP: for every article: */
-  
+    for(let article of articles) {
+
       /* find tags wrapper */
-  
+      const tagsWrapper = article.querySelector(optArticleTagsSelector);
+
       /* make html variable with empty string */
-  
+      let html = '';
+
       /* get tags from data-tags attribute */
-  
+      const articleTags = article.getAttribute('data-tags');
+
       /* split tags into array */
-  
+      const articleTagsArray = articleTags.split(' ');
+      
       /* START LOOP: for each tag */
-  
+      for (let tag of articleTagsArray) {
+ 
         /* generate HTML of the link */
-  
+        const linkHTML = '<li><a href="#' + tag + '"><span>' + tag + '</span></a></li>';
+
         /* add generated code to html variable */
-  
-      /* END LOOP: for each tag */
-  
+        html = html + linkHTML;
+      }
       /* insert HTML of all the links into the tags wrapper */
-  
-    /* END LOOP: for every article: */
+      tagsWrapper.innerHTML = html;
+      
+      /* END LOOP: for every article: */
+    }
   }
   
   generateTags();
-
+  console.log(generateTags);
 
 }
