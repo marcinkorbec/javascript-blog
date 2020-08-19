@@ -21,7 +21,7 @@
 
         const clickedElement = this;
 
-        /* W obrębie tej funkcji this to aktualnie kliknięty link - zapisujemy go do zmiennej pomocniczej, której nazwa clickedElement ma nam podpowiadać jej zastosowanie */
+    /* W obrębie tej funkcji this to aktualnie kliknięty link - zapisujemy go do zmiennej pomocniczej, której nazwa clickedElement ma nam podpowiadać jej zastosowanie */
 
         const activeLinks = document.querySelectorAll(".titles a.active");
         /* Zapisujemy do zmiennej pomocniczej activeLinks wszystkie linki o klasie .active które znajdują się w .titles */
@@ -31,7 +31,7 @@
             /* Każdemu z linków odbieramy klasę .active - robimy to bo zaraz będziemy ją nadawać na nasz kliknięty przed chwilą link */
         }
 
-        clickedElement.classList.add("active");
+        clickedElement.classList.add('active');
         /* Dodajemy klasę .active na nasz kliknięty link */
 
         const activeArticles = document.querySelectorAll(".posts article.active");
