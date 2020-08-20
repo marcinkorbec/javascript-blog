@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 { 'use strict';
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
@@ -154,19 +155,61 @@
     for(let article of articles) {
       /* find authors wrapper */
       const authorsWrapper = article.querySelector(optArticleAuthorSelector);
+      /* make html variable with empty string */
+      let html = '';
       /* change html for new links */
       authorsWrapper.innerHTML = '';
       /* get autor from data-authors attribute */
       const articleAuthors = article.getAttribute('data-author');
       /* generate HTML of the link */
-      const linkHTML = '<p class="post-author">by '+ articleAuthors + '</p>';
-      /* insert HTML of all the links into the tags wrapper */
-      authorsWrapper.innerHTML = linkHTML;
-      /* END LOOP: for every article: */
-      console.log(linkHTML);
+      const linkHTML = '<a href="#author-' + articleAuthors + '">' + articleAuthors + '</a>';
+      console.log('html link:', linkHTML);
+      /* add generated code to html variable */
+      html = html + linkHTML;
+      authorsWrapper.innerHTML = html;
     }
   }
   
   generateAuthors();
+ 
+ // eslint-disable-next-line no-inner-declarations
+ function authorClickHandler(event){
+    /* prevent default action for this event */
+    event.preventDefault();
+    /* make new constant named "clickedElement" and give it the value of "this" */
+    const clickedElement = this;
+    /* make a new constant "href" and read the attribute "href" of the clicked element */
+    const href = clickedElement.getAttribute('href');
+    /* make a new constant "authors" and extract author from the "href" constant */
+    const author = href.replace('#author-', '');
+    /* find all author links with class active */
+    const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+  /* START LOOP: for each active author link */
+  for (let activeAuthorLink of authorLinks){
+    /* remove class active */
+    activeAuthorLink.classList.remove('active');
+  /* END LOOP: for each active author link */
+  }
+    /* find all autor links with "href" attribute equal to the "href" constant */
+  const equalLinks = document.querySelectorAll('a[href="' + href + '"]');
+  for (let equalLink of equalLinks){
+    equalLink.classList.add('active');
+  }
+    /* execute function "generateTitleLinks" with article selector as argument */
+    generateTitleLinks('[data-author="' + author + '"]');
+  }
+ 
+  // eslint-disable-next-line no-inner-declarations
+  function addClickListenersToAuthor(){
+    /* find all links to author */
+    const links = document.querySelectorAll('[href^="#author-"]');
+    /* START LOOP: for each link */
+      for (let link of links) {
+      /* add tagClickHandler as event listener for that link */
+      link.addEventListener('click', authorClickHandler);
+    /* END LOOP: for each link */
+  } 
+  }
   
+  addClickListenersToAuthor();
 }
