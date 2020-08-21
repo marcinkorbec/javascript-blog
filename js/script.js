@@ -96,6 +96,15 @@
   }
 
   // eslint-disable-next-line no-inner-declarations
+  function calculateTagClass(count, params) {
+    const normalizedCount = count - params.min;
+    const normalizedMax = params.max - params.min;
+    const percentage = normalizedCount / normalizedMax;
+    const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+    return optCloudClassPrefix + classNumber;
+  }
+
+  // eslint-disable-next-line no-inner-declarations
   function generateTags(){
     /* [NEW] create a new variable allTags with an empty array */
     let allTags = {};
@@ -138,8 +147,10 @@
 
     /* [NEW] START LOOP: for each tag in allTags: */
     for(let tag in allTags){
+      const tagLinkHTML = '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
+      console.log('tagLinkHTML:', tagLinkHTML);
       /* [NEW] generate code of a link and add it to allTagsHTML */
-      allTagsHTML += '<li><a href="#tag-' + tag + '"><span>' + tag + ' '+ '(' + allTags[tag] + ') </span></a></li> ';
+      allTagsHTML += tagLinkHTML;
     }
     /* [NEW] END LOOP: for each tag in allTags: */
     console.log(allTags)
